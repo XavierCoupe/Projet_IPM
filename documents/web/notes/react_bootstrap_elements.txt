@@ -1,0 +1,13 @@
+React bootstrap elements:
+	https://react-bootstrap.github.io/docs/components/carousel
+
+idea:
+	cartes à collectioner
+	présentation style pokédex
+	géocache
+
+Component:
+	offcanvas (présentation de la carte)
+	Navbars or Navs and tab (système de navigtation)
+	Card (carte à collectioner)
+	Account system
