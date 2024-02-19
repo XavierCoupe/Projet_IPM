@@ -1,6 +1,6 @@
 function Capture(){
     return(
-        <h1>Goodbye world! (capture)</h1>
+        <h1 style={{color: "#FFF"}}>Goodbye world!</h1>
     );
 }
 
