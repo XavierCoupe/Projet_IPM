@@ -8,7 +8,7 @@ function Navigator(){
 
     useEffect(() => {
       switch (location.pathname) {
-        case "/maCollection":
+        case "/":
           setSelected(1);
           break;
         case "/allCard":
@@ -33,7 +33,7 @@ function Navigator(){
           <div>
             <Nav variant="pills" activeKey={selected} onSelect={handleSelect}>
               <Nav.Item>
-                <Link to="/maCollection" className="nav-link" style={{ color: selected === 1 ? '#FFF' : '#2997ff' }} >
+                <Link to="/" className="nav-link" style={{ color: selected === 1 ? '#FFF' : '#2997ff' }} >
                   Ma collection
                 </Link>
               </Nav.Item>

@@ -15,7 +15,7 @@ function App() {
       <Router>
         <Navigator/>
         <Routes>
-          <Route path="/maCollection" Component={MyCollection} />
+          <Route path="/" Component={MyCollection} />
           <Route path="/allCard" Component={AllCard} />
           <Route path="/capture" Component={Capture} />
         </Routes>

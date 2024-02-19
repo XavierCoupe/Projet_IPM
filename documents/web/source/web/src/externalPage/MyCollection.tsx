@@ -1,5 +1,6 @@
 import Pagination from 'react-bootstrap/Pagination';
 import GetCard from '../sharedComponent/GetCard';
+import medos from '../assets/medos.jpg'
 
 function GetPagination() {
     return (
@@ -29,7 +30,7 @@ function MyCollection() {
       { name: 'Test', description: 'big test ca' },
     ];
 
-    var image = "https://img-3.journaldesfemmes.fr/55Pa2VVqjc0hXSevl8ddLxHV53Y=/1500x/smart/6f75f95c0d54470fa206aa78fe6ed3a8/ccmcms-jdf/39925288.jpg";
+    var image = medos;
     return(
       <>
         <div style={{ padding:'1rem', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
