@@ -17,6 +17,9 @@ function Navigator(){
         case "/capture":
           setSelected(3);
           break;
+        case "/profile":
+          setSelected(4);
+          break;
         default:
           setSelected(1);
       }
@@ -48,7 +51,9 @@ function Navigator(){
                 </Link>
               </Nav.Item>
               <NavDropdown title="Options" id="nav-dropdown">
-                <NavDropdown.Item eventKey="4.1">Profile</NavDropdown.Item>
+                <Link to="/profile" className="nav-link" style={{ color: selected === 4 ? '#FFF' : '#2997ff' }} >
+                    Profile
+                </Link>
                 <NavDropdown.Item eventKey="4.2">Paramètres</NavDropdown.Item>
                 <NavDropdown.Item eventKey="4.3">Something else here</NavDropdown.Item>
                 <NavDropdown.Divider />

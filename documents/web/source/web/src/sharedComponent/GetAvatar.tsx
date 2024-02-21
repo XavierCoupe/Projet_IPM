@@ -1,9 +1,9 @@
-import { Avatar } from "flowbite-react";
+import laga from '../assets/laga.webp'
 
 function GetAvatar() {
     return (
-      <div className="flex flex-wrap gap-2">
-        <Avatar img="/images/people/profile-picture-5.jpg" alt="avatar of Jese" rounded />
+      <div style={{width: "2rem"}}>
+        <img src={laga} alt="avatar de medos" style={{width: "6rem", borderRadius: "50px", height: "6rem", objectFit: "cover"}}/>
       </div>
     );
 }

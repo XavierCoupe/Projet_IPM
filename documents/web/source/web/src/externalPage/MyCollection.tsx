@@ -35,7 +35,7 @@ function MyCollection() {
       <>
         <div style={{ padding:'1rem', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
           {plantes.map((name, index) => (
-            <GetCard key={index} name={name.name} description={name.description} image={image} id='1'/>
+            <GetCard key={index} name={name.name} image={image} id='1'/>
           ))}
         </div>
         <GetPagination/>
