@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Nav, NavDropdown } from 'react-bootstrap';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Disconnect from './Disconnect';
 
 function Navigator(){
     const [selected, setSelected] = useState<number>(1)
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
       switch (location.pathname) {
@@ -30,6 +32,11 @@ function Navigator(){
         setSelected(parseInt(eventKey))
       }
     };
+
+    const handleDisconnect = () => {
+      Disconnect();
+      navigate('/connexion');
+    }
   
     return(
         <div style={{display: 'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
@@ -57,7 +64,7 @@ function Navigator(){
                 <NavDropdown.Item eventKey="4.2">Paramètres</NavDropdown.Item>
                 <NavDropdown.Item eventKey="4.3">Something else here</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item eventKey="4.4">Déconnexion</NavDropdown.Item>
+                <NavDropdown.Item eventKey="4.4" onClick={handleDisconnect}>Déconnexion</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </div>

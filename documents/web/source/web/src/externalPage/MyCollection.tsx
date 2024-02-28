@@ -1,6 +1,10 @@
 import Pagination from 'react-bootstrap/Pagination';
 import GetCard from '../sharedComponent/GetCard';
 import medos from '../assets/medos.jpg'
+import Auth from '../sharedComponent/Auth';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+
 
 function GetPagination() {
     return (
@@ -18,6 +22,15 @@ function GetPagination() {
   }
 
 function MyCollection() {
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+      if(!Auth()){
+        navigate('/connexion')
+      }
+    });
+
     const plantes = [
       { name: 'Sapin', description: 'C\'est un connifere.' },
       { name: 'Plantes', description: 'c une plantes logique' },
