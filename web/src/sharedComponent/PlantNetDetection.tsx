@@ -1,8 +1,5 @@
 import { ChangeEvent, useState } from "react";
-/*
-const fs = require('fs'); // File System | Node.js
-const axios = require('axios'); // HTTP client
-const FormData = require('form-data'); // Readable "multipart/form-data" streams*/
+import axios from "axios";
 
 const PROJECT = 'all'; // try 'weurope' or 'canada'
 const API_URL = 'https://my-api.plantnet.org/v2/identify/' + PROJECT + '?api-key=';

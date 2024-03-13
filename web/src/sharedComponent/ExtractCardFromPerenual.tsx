@@ -14,7 +14,7 @@ function ExtractCardFromPerenual({id} : {id : string}) {
     useEffect(() => {
       async function fetchData() {
         try {
-          const response = await axios.get('https://perenual.com/api/species/details/' + id + '?key=' + GetPerenualApiKey({ num: 1 }));
+          const response = await axios.get('https://perenual.com/api/species/details/' + id + '?key=' + GetPerenualApiKey({ num: 2 }));
           setResponseData(response.data);
         } catch (error) {
           console.error("Erreur lors de la récupération des données:", error);

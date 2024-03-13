@@ -43,26 +43,25 @@ function Navigator(){
           <div>
             <Nav variant="pills" activeKey={selected} onSelect={handleSelect}>
               <Nav.Item>
-                <Link to="/" className="nav-link" style={{ color: selected === 1 ? '#FFF' : '#2997ff' }} >
+                <Link to="/" className="nav-link" style={{ color: selected === 1 ? '#FFF' : '#00BF63' }} >
                   Ma collection
                 </Link>
               </Nav.Item>
               <Nav.Item>
-                <Link to="/allCard" className="nav-link" style={{ color: selected === 2 ? '#FFF' : '#2997ff' }}>
+                <Link to="/allCard" className="nav-link" style={{ color: selected === 2 ? '#FFF' : '#00BF63' }}>
                     Toute les cartes
                 </Link>
               </Nav.Item>
               <Nav.Item>
-                <Link to="/capture" className="nav-link" style={{ color: selected === 3 ? '#FFF' : '#2997ff' }}>
+                <Link to="/capture" className="nav-link" style={{ color: selected === 3 ? '#FFF' : '#00BF63' }}>
                   Capturer une nouvelle carte
                 </Link>
               </Nav.Item>
-              <NavDropdown title="Options" id="nav-dropdown">
-                <Link to="/profile" className="nav-link" style={{ color: selected === 4 ? '#FFF' : '#2997ff' }} >
+              <NavDropdown title="Options" id="nav-dropdown" style={{ color: selected === 4 ? '#FFF' : '#00BF63' }}>
+                <Link to="/profile" className="nav-link" style={{ color: selected === 4 ? '#FFF' : '#00BF63' }} >
                     Profile
                 </Link>
-                <NavDropdown.Item eventKey="4.2">Paramètres</NavDropdown.Item>
-                <NavDropdown.Item eventKey="4.3">Something else here</NavDropdown.Item>
+                <NavDropdown.Item eventKey="4.3">Upgrade plan</NavDropdown.Item>
                 <NavDropdown.Divider />
                 <NavDropdown.Item eventKey="4.4" onClick={handleDisconnect}>Déconnexion</NavDropdown.Item>
               </NavDropdown>

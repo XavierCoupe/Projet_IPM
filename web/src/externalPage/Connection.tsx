@@ -1,7 +1,9 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
 import Auth from '../sharedComponent/Auth';
+import logo from '../assets/logo-web.png'
+
+import '../style/connection.css'
+import Scroller from '../sharedComponent/Scroller';
 
 function Connection(){
     const navigate = useNavigate();
@@ -17,27 +19,21 @@ function Connection(){
 
     return (
         <>
-        <Form>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" />
-                <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-                </Form.Text>
-            </Form.Group>
-
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <Button variant="primary" type="submit" >
-                Submit
-            </Button>
-        </Form>
-        <button onClick={handleConnect}>click to switch page</button>
+            <Scroller/>
+            <div className='mainContainer'>
+                <h1>Se connecter</h1>
+                <img src={logo} alt="logo" />
+                <div className='inputContainer'>
+                    <input type="email" name="" id="" placeholder='votre@email.domaine' style={{borderRadius: "4px", marginTop: "2rem", width: '100%'}}/>
+                    <input type="password" name="" id="" placeholder='mot de passe' style={{borderRadius: "4px", marginTop: "2rem", width: '100%'}}/>
+                </div>
+                <div className='connectContainer'>
+                    <button onClick={handleConnect} className='connectButton'><h4>Se connecter</h4></button>
+                    <button className='noAccountButton'><h4>Pas encore de compte?</h4></button>
+                </div>
+            </div>
+        
+       
         </>
     )
 }

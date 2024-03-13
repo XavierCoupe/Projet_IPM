@@ -1,0 +1,14 @@
+.noCardInCollection{
+    margin-top: 20rem;
+    margin-bottom: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loadingBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
