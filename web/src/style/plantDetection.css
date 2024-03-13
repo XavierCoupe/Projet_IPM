@@ -1,0 +1,32 @@
+.mainContainer{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30rem;
+    padding-top: 10rem;
+}
+
+.formContainer{
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.inputFile{
+    background-color: #00BF63;
+    color: #FFF;
+    cursor: pointer;
+    margin-bottom: 4rem;
+}
+
+.inputSub{
+    background-color: #00BF63;
+    border: none;
+    border-radius: 2px;
+}
+
+.scanImg{
+    width: 8rem;
+    margin-top: 2rem;
+}

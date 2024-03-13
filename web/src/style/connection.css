@@ -1,5 +1,9 @@
 *{
-    color: #FFF;
+    color: hsl(0, 0%, 100%);
+}
+
+input{
+    color: #000;
 }
 
 .mainContainer{

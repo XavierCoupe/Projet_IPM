@@ -7,8 +7,8 @@ function Capture(){
 
     return(
         <>
-            <PlantNetDetection/>
             <Scroller/>
+            <PlantNetDetection/>
         </>   
     );
 }

@@ -1,64 +1,24 @@
-import { ChangeEvent, useState } from "react";
-import axios from "axios";
-
-const PROJECT = 'all'; // try 'weurope' or 'canada'
-const API_URL = 'https://my-api.plantnet.org/v2/identify/' + PROJECT + '?api-key=';
-const API_PRIVATE_KEY = 'your-private-api-key'; // secret
-const API_SIMSEARCH_OPTION = '&include-related-images=true'; // optional: get most similar images
-const API_LANG = '&lang=fr'; // default: en
-
-const IMAGE_1 = '../assets/clematis.jpeg';
-const ORGAN_1 = 'flower';
-const IMAGE_2 = '../assets/clematis.jpeg';
-const ORGAN_2 = 'leaf';
+import '../style/plantDetection.css'
+import TakePicture from './TakePicture';
+import scan from '../assets/scan.png'
 
 function PlantNetDetection(){
-    const [formData] = useState(new FormData());
 
-    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length > 0) {
-        const file = e.target.files[0];
-        // Ajoutez le fichier à l'objet FormData
-        formData.append('images', file);
-        }
-    };
-
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        (async () => {
-            let form = new FormData();
-        
-            form.append('organs', ORGAN_1);
-            form.append('images', fs.createReadStream(IMAGE_1));
-        
-            form.append('organs', ORGAN_2);
-            form.append('images', fs.createReadStream(IMAGE_2));
-        
-            try {
-                const { status, data } = await axios.post(
-                    // list of probable species
-                    API_URL + API_PRIVATE_KEY,
-                    // list of probable species + most similar images
-                    // API_URL + API_PRIVATE_KEY + API_SIMSEARCH_OPTION,
-                    // list of probable species + french common names
-                    // API_URL + API_PRIVATE_KEY + API_LANG,
-                    form, {
-                        headers: form.getHeaders()
-                    }
-                );
-        
-                console.log('status', status); // should be: 200
-                console.log('data', require('util').inspect(data, false, null, true));
-            } catch (error) {
-                console.error('error', error);
-            }
-        })();
-    };
+    const handleSubmit = () =>{
+        console.log("submit");
+    }
 
     return (
-        <form onSubmit={handleSubmit}>
-        <input type="file" name="image" onChange={handleChange} />
-        <button type="submit">Envoyer</button>
-        </form>
+        <div className='mainContainer'>
+            <h1>Scaner une espèce</h1>
+            <img className='scanImg' src={scan} alt="scan icon" />
+            <form className="formContainer" onSubmit={handleSubmit}>
+                <input className='inputFile' type="file" name="image" onChange={handleSubmit} />
+                <button className="inputSub" type="submit">Choisir cette image</button>
+            </form>
+            {false && <TakePicture/>}
+        </div>
+        
     );
 }
 

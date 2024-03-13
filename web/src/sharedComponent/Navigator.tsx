@@ -57,8 +57,8 @@ function Navigator(){
                   Capturer une nouvelle carte
                 </Link>
               </Nav.Item>
-              <NavDropdown title="Options" id="nav-dropdown" style={{ color: selected === 4 ? '#FFF' : '#00BF63' }}>
-                <Link to="/profile" className="nav-link" style={{ color: selected === 4 ? '#FFF' : '#00BF63' }} >
+              <NavDropdown title="Options" id="nav-dropdown" style={{ backgroundColor: 'transparent'}}>
+                <Link to="/profile" className="nav-link" style={{ color: selected === 3 ? '#000' : '#00BF63', backgroundColor: 'transparent'}} >
                     Profile
                 </Link>
                 <NavDropdown.Item eventKey="4.3">Upgrade plan</NavDropdown.Item>

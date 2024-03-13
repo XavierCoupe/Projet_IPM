@@ -5,6 +5,8 @@ import Auth from '../sharedComponent/Auth';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 
+import empty from '../assets/empty.png'
+
 import '../style/collection.css'
 import Scroller from '../sharedComponent/Scroller';
 
@@ -69,6 +71,7 @@ function MyCollection() {
         <>
           <Scroller />
           <div className='noCardInCollection'>
+            <img style={{width: '10rem'}} src={empty} alt="empty icon" />
             <h1>Vous n'avez aucune plante dans votre collection pour le moment</h1>
             <h3>Voyagez, découvrez et scanez votre environnement pour remplir votre collection!</h3>
           </div>
