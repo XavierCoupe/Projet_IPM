@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Nav, NavDropdown } from 'react-bootstrap';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import Disconnect from './Disconnect';
+import { Nav } from 'react-bootstrap';
+import { Link, useLocation } from 'react-router-dom';
+import Auth from './Auth';
 
 function Navigator(){
     const [selected, setSelected] = useState<number>(1)
     const location = useLocation();
-    const navigate = useNavigate();
 
     useEffect(() => {
       switch (location.pathname) {
@@ -33,12 +32,8 @@ function Navigator(){
       }
     };
 
-    const handleDisconnect = () => {
-      Disconnect();
-      navigate('/connexion');
-    }
-  
-    return(
+    if(Auth()){
+      return(
         <div style={{display: 'flex', flexDirection:'row', justifyContent:'space-between', alignItems:'center'}}>
           <div>
             <Nav variant="pills" activeKey={selected} onSelect={handleSelect}>
@@ -57,21 +52,23 @@ function Navigator(){
                   Capturer une nouvelle carte
                 </Link>
               </Nav.Item>
-              <NavDropdown title="Options" id="nav-dropdown" style={{ backgroundColor: 'transparent'}}>
-                <Link to="/profile" className="nav-link" style={{ color: selected === 3 ? '#000' : '#00BF63', backgroundColor: 'transparent'}} >
-                    Profile
+              <Nav.Item>
+                <Link to="/profile" className="nav-link" style={{ color: selected === 4 ? '#FFF' : '#00BF63' }} >
+                  Profile
                 </Link>
-                <NavDropdown.Item eventKey="4.3">Upgrade plan</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item eventKey="4.4" onClick={handleDisconnect}>Déconnexion</NavDropdown.Item>
-              </NavDropdown>
+              </Nav.Item>
             </Nav>
           </div>
           <div>
             {/*<GetAvatar/>*/}
           </div>
         </div>
-    )
+      )
+    }else{
+      return(<div></div>)
+    }
+  
+    
 }
 
 export default Navigator

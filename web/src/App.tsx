@@ -10,6 +10,7 @@ import InitConnexion from './sharedComponent/InitConnexion';
 
 import './style/App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import SingUp from './externalPage/Singup';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
           <Route path="/capture" Component={Capture} />
           <Route path="/profile" Component={Profile} />
           <Route path="/connexion" Component={Connection} />
+          <Route path="/singup" Component={SingUp} />
         </Routes>
         <Footer/>
       </Router>

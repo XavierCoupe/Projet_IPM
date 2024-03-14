@@ -13,6 +13,10 @@ function Connection(){
         navigate('/');
     }
 
+    const handleCreateAccount = () => {
+        navigate('/singup');
+    }
+
     if(Auth()){
         navigate('/');
     }
@@ -29,7 +33,7 @@ function Connection(){
                 </div>
                 <div className='connectContainer'>
                     <button onClick={handleConnect} className='connectButton'><h4>Se connecter</h4></button>
-                    <button className='noAccountButton'><h4>Pas encore de compte?</h4></button>
+                    <button onClick={handleCreateAccount} className='noAccountButton'><h4>Pas encore de compte?</h4></button>
                 </div>
             </div>
         

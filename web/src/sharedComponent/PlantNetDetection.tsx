@@ -10,7 +10,7 @@ function PlantNetDetection(){
 
     return (
         <div className='mainContainer'>
-            <h1>Scaner une espèce</h1>
+            <h1>Scanez une espèce</h1>
             <img className='scanImg' src={scan} alt="scan icon" />
             <form className="formContainer" onSubmit={handleSubmit}>
                 <input className='inputFile' type="file" name="image" onChange={handleSubmit} />
