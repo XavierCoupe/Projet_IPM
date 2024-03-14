@@ -35,7 +35,7 @@ function PerenualPlantList(){
                 if(!isCall){
                     setIsCall(true);
                     console.warn("fetch data with state: "+isCall)
-                    const response = await axios.get('https://perenual.com/api/species-list?key=' + GetPerenualApiKey({ num: 0 }) + '&page=' + page);
+                    const response = await axios.get('https://perenual.com/api/species-list?key=' + GetPerenualApiKey({ num: 3 }) + '&page=' + page);
                     setResponseData(response.data);
                     setPerPage(response.data?.to - response.data?.from - 1 || 20);
                 }

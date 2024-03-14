@@ -58,4 +58,9 @@
 /*ExtractCardFromPerenual*/
 .HerbadexDisplayZone{
     padding-top: 2rem;
+    color: #000;
+}
+
+.offcanvasTitle h3{
+    color: #000;
 }

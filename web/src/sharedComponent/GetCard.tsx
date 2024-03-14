@@ -34,7 +34,7 @@ const GetCard: React.FC<CardProps> = ({ name, image, id }: CardProps) => {
         </Card>
         <Offcanvas show={show} onHide={handleClose}>
           <Offcanvas.Header closeButton>
-            <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+            <Offcanvas.Title className='offcanvasTitle'><h3>Informations</h3></Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <ExtractCardFromPerenual id={id}/>
