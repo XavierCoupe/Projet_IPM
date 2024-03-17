@@ -19,11 +19,13 @@ const GetCard: React.FC<CardProps> = ({ name, image, id }: CardProps) => {
   
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    
+
     return (
       <div className='CardEncapsulation'>
-        <Card className='HerbadexCard'> 
-          <Card.Img variant="top" src={image} className='HerbadexCardImage'/>
+        <Card className='HerbadexCard'>
+        {image == '/src/assets/comingSoon.png' ? 
+            (<Card.Img variant="top" src={image} className='HerbadexCardImageSoon'/>):
+            (<Card.Img variant="top" src={image} className='HerbadexCardImage'/>)}
           <Card.Body>
             <Card.Title>{name}</Card.Title>
               <h6>

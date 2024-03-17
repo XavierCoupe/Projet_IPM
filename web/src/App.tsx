@@ -7,10 +7,11 @@ import Capture from './externalPage/Capture';
 import Profile from './externalPage/Profile';
 import Connection from './externalPage/Connection';
 import InitConnexion from './sharedComponent/InitConnexion';
+import NewCard from './externalPage/NewCard';
+import SingUp from './externalPage/SingUp';
 
 import './style/App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SingUp from './externalPage/Singup';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/profile" Component={Profile} />
           <Route path="/connexion" Component={Connection} />
           <Route path="/singup" Component={SingUp} />
+          <Route path="/newCard" Component={NewCard} />
         </Routes>
         <Footer/>
       </Router>

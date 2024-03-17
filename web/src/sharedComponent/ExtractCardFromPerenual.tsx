@@ -7,6 +7,8 @@ import hardinessMap from '../assets/hardiness_map.png';
 
 import '../style/global.css'
 
+import comingSoon from '../assets/comingSoon.png'
+
 function ExtractCardFromPerenual({id} : {id : string}) {
     const [responseData, setResponseData] = useState<any | null>(null);
     const [overTime, setOverTime] = useState(false);
@@ -28,12 +30,20 @@ function ExtractCardFromPerenual({id} : {id : string}) {
       <div>
         {responseData ? (
           <>
-            <HerbadexCarousel title={responseData['common_name']} 
-            secondTitle={responseData['scientific_name']} 
-            thirdTitle=""
-            fImg={responseData['default_image']['regular_url']}
-            sImg={responseData['default_image']['regular_url']}
-            tImg={responseData['default_image']['regular_url']}/>   
+            {responseData['default_image'] == null? (
+              <HerbadexCarousel title={responseData['common_name']} 
+              secondTitle={responseData['scientific_name']} 
+              thirdTitle=""
+              fImg={comingSoon}
+              sImg={comingSoon}
+              tImg={comingSoon}/>):(
+              <HerbadexCarousel title={responseData['common_name']} 
+              secondTitle={responseData['scientific_name']} 
+              thirdTitle=""
+              fImg={responseData['default_image']['regular_url']}
+              sImg={responseData['default_image']['regular_url']}
+              tImg={responseData['default_image']['regular_url']}/>)}
+             
             <div>
               <div className='HerbadexDisplayZone'>
                 <h3>Nom commun</h3>

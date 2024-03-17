@@ -17,9 +17,7 @@ function AllCard(){
   return(
         <>
             <Scroller/>
-            <div style={{ padding:'1rem', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-              <PerenualPlantList/>
-            </div>
+            <PerenualPlantList/>
         </>
     );
 }

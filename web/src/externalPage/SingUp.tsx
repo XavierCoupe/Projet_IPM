@@ -17,7 +17,7 @@ function SingUp(){
     const [step, setStep] = useState(0);
     
     const [informations, setInformations] = useState<string[]>();
-    const [textInformation, setTextInformation] = useState("Pour commencer, comment veux tu que je t'appel ?");
+    const [textInformation, setTextInformation] = useState("Pour commencer, comment veux tu que je t'appelle ?");
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const nameMinLength = 3;

@@ -30,6 +30,10 @@
     object-fit: cover;
 }
 
+.HerbadexCardImageSoon{
+    height: 12.5rem;
+}
+
 /*Footer*/
 .HerbadexFooter{
     color: #FFF;
@@ -58,6 +62,10 @@
 /*ExtractCardFromPerenual*/
 .HerbadexDisplayZone{
     padding-top: 2rem;
+    color: #000;
+}
+
+.HerbadexDisplayZone p{
     color: #000;
 }
 
