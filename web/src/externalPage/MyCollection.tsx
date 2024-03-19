@@ -4,7 +4,6 @@ import medos from '../assets/medos.jpg'
 import Auth from '../sharedComponent/Auth';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import StockageTaille from '../../private/Connexion'
 
 import empty from '../assets/empty.png'
 
@@ -75,7 +74,6 @@ function MyCollection() {
             <h1>Vous n'avez aucune plante dans votre collection pour le moment</h1>
             <h3>Voyagez, découvrez et scanez votre environnement pour remplir votre collection!</h3>
           </div>
-          <StockageTaille/>
         </>
       );
     }
