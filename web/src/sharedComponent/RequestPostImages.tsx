@@ -1,4 +1,4 @@
-const PROJECT = 'all'; // try 'weurope', 'canada'…
+/*const PROJECT = 'all'; // try 'weurope', 'canada'…
 const API_URL = 'https://my-api.plantnet.org/v2/identify/' + PROJECT;
 
 // to make this example work you have to expose your API key and
@@ -76,4 +76,4 @@ document.addEventListener('DOMContentLoaded', () => {
         identify();
     });
 
-});
+});*/

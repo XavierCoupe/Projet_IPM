@@ -2,7 +2,7 @@ import '../style/plantDetection.css'
 import TakePicture from './TakePicture';
 import scan from '../assets/scan.png'
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 const PROJECT = 'all'; // try 'weurope', 'canada'…
 const API_URL = 'https://my-api.plantnet.org/v2/identify/' + PROJECT;
