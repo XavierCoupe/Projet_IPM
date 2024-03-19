@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
+import { addDoc, collection, getDocs, getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyDM1wlafC_kJAy4zmb99thhHkuZ5LQxiDg",
@@ -13,11 +14,11 @@ const firebaseConfig = {
     measurementId: "G-4S98PKF5FL"
   };
 
-if (!firebase.apps.length) {
-  firebase.initializeApp(firebaseConfig);
-}
+const app = firebase.initializeApp(firebaseConfig);
 
-const db = firebase.firestore();
+//const db = firebase.firestore();
+const db = getFirestore(app);
+const tailles = collection(db, "utilisateurs");
 
 const StockageTaille: React.FC = () => {
   const [taille, setTaille] = useState<number>(0);
@@ -29,16 +30,20 @@ const StockageTaille: React.FC = () => {
 
   const sauvegarderTaille = () => {
     console.log("test");
-    db.collection('tailles').add({
-      taille: taille
-    })
-    .then(() => {
-      console.log('Taille sauvegardée avec succès!');
-    })
-    .catch((error) => {
-      console.error('Erreur lors de la sauvegarde de la taille :', error);
-    });
+    addDoc(tailles, {taille})
+    getTailles()
   };
+
+  const getTailles = () => {
+    console.log("test2");
+    getDocs(tailles).then((snapshot) => {
+        let sizes: any = [];
+        snapshot.docs.forEach((doc) => {
+            sizes.push({...doc.data(), id: doc.id});
+        });
+        console.log(sizes);
+    })
+  }
 
   return (
     <div>
