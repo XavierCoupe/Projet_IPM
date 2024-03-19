@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { saveAs } from 'file-saver';
+//import { saveAs } from 'file-saver';
 
 const TakePicture: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
-  const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
+  //const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
 
   const openCamera = async () => {
     try {
@@ -24,7 +24,7 @@ const TakePicture: React.FC = () => {
         track.stop();
       });
       setStream(null);
-      setImageDataUrl(null);
+      //setImageDataUrl(null);
       if (videoRef.current) {
         videoRef.current.srcObject = null;
       }
@@ -39,14 +39,14 @@ const TakePicture: React.FC = () => {
       canvas.height = video.videoHeight;
       canvas.getContext('2d')?.drawImage(video, 0, 0, canvas.width, canvas.height);
       const url = canvas.toDataURL('image/png');
-      setImageDataUrl(url);
+      //setImageDataUrl(url);
       console.log(url);
       closeCamera();
     }
   };
 
   const downloadImage = () => {
-    if (imageDataUrl) {
+    /*if (imageDataUrl) {
       fetch(imageDataUrl)
         .then(res => res.blob())
         .then(blob => {
@@ -55,7 +55,7 @@ const TakePicture: React.FC = () => {
         .catch(error => {
           console.error('Error downloading image:', error);
         });
-    }
+    }*/
   };
 
   return (
