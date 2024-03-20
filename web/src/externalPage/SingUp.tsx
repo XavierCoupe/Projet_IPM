@@ -4,9 +4,35 @@ import singin from '../assets/singin.png'
 import send from '../assets/send.png'
 
 import '../style/singup.css'
+
 import { useEffect, useState } from 'react';
 import Scroller from '../sharedComponent/Scroller';
 import Auth from '../sharedComponent/Auth';
+
+import firebase from 'firebase/compat/app'; // Importez compat/app
+import 'firebase/compat/auth'; // Importez compat/auth
+import 'firebase/compat/firestore'; // Importez compat/firestore
+
+// Configurer Firebase avec vos propres clés d'API
+const firebaseConfig = {
+
+    apiKey: "AIzaSyBUeKhmFj2oiA_x2P44mCKW3vo7SgW2064",
+    authDomain: "herbadex-4b81c.firebaseapp.com",
+    databaseURL: "https://herbadex-4b81c-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "herbadex-4b81c",
+    storageBucket: "herbadex-4b81c.appspot.com",
+    messagingSenderId: "622092788203",
+    appId: "1:622092788203:web:97d2767d88cec703f2b9ae",
+    measurementId: "G-CDQH82R6KR"
+  
+};
+
+// Initialiser Firebase
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app(); // si Firebase est déjà initialisé, utilisez l'instance existante
+}
 
 function SingUp(){
     const [name, setName] = useState('');
@@ -27,6 +53,30 @@ function SingUp(){
     const navigate = useNavigate();
 
     useEffect(() => {
+        const handleSignUp = async () => {
+            if(confirmation){
+                console.log("wow");
+                try {
+                    const userCredential = await firebase.auth().createUserWithEmailAndPassword(mail, password);
+                    if (userCredential.user) {
+                    // Une fois l'utilisateur inscrit, vous pouvez stocker des informations supplémentaires dans Firestore
+                    await firebase.firestore().collection('users').doc(userCredential.user.uid).set({
+                        name: name,
+                        email: mail
+                    });
+                    alert('Inscription réussie!');
+                    }
+                } catch (error) {
+                    console.log("Failure to connect with status: " + error);
+                }
+            }
+        }
+
+        handleSignUp();
+    }, [confirmation])
+    
+      
+    useEffect(() => {
         if(Auth()){
           navigate('/')
         }
@@ -42,7 +92,7 @@ function SingUp(){
         if(name.length > nameMinLength){
             setInformations([name]);
             setTextInformation("Super, bienvenue à toi @" + name + " ! Quel est ton e-mail ?");
-        }      
+        }
     }, [name])
 
     useEffect(() => {
@@ -68,6 +118,9 @@ function SingUp(){
 
     const handleNext = () => {
         var inputElement = document.getElementById("informationButton") as HTMLInputElement;
+        var messageZone = document.getElementById("messageZone") as HTMLInputElement;
+
+        messageZone.style.display = 'none';
 
         if(step == 0){
             if (inputElement !== null && inputElement.value.length > nameMinLength) {
@@ -78,6 +131,11 @@ function SingUp(){
                 inputElement.placeholder = "email@domaine.exemple";
                 setStep(1);
             }
+                messageZone.value = "Erreur: minimum 4 caractères attendus."
+                messageZone.style.display = 'initial';
+                console.log("test");
+                console.log(messageZone.value)
+            
         }else if(step == 1){
             if (inputElement !== null && emailRegex.test(inputElement.value)) {
                 var valeurInput: string = inputElement.value;
@@ -96,10 +154,8 @@ function SingUp(){
             }
         }else if(step == 3){
             if (inputElement !== null && inputElement.value.length > passwordMinLength) {
-                console.log("test");
                 var valeurInput: string = inputElement.value;
                 if(valeurInput == password){
-                    console.log("test2");
                     setConfirmation(true);
                     inputElement.style.display = 'none';
                     inputElement = document.getElementById("nextButton") as HTMLInputElement;
@@ -142,6 +198,11 @@ function SingUp(){
                         <button className='sendButton' type="submit" onClick={handleNext} id='nextButton'><img src={send} alt="suivant" /></button>
                         <button className='backHome' id='backHome' onClick={handleComeBack}>Revenir à la page de connexion</button>
                     </div>
+                </div>
+                <div>
+                    <h3 id='messageZone' className='messageZone'>
+                        dfdf
+                    </h3>
                 </div>
             </div>
         </>

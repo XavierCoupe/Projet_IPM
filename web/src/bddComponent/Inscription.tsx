@@ -7,19 +7,12 @@ import 'firebase/compat/firestore'; // Importez compat/firestore
 const firebaseConfig = {
 
     apiKey: "AIzaSyBUeKhmFj2oiA_x2P44mCKW3vo7SgW2064",
-  
     authDomain: "herbadex-4b81c.firebaseapp.com",
-  
     databaseURL: "https://herbadex-4b81c-default-rtdb.europe-west1.firebasedatabase.app",
-  
     projectId: "herbadex-4b81c",
-  
     storageBucket: "herbadex-4b81c.appspot.com",
-  
     messagingSenderId: "622092788203",
-  
     appId: "1:622092788203:web:97d2767d88cec703f2b9ae",
-  
     measurementId: "G-CDQH82R6KR"
   
 };
@@ -48,7 +41,7 @@ const UserRegistration: React.FC = () => {
         alert('Inscription réussie!');
       }
     } catch (error) {
-      alert(error.message);
+      console.log("Failure to connect");
     }
   };
 

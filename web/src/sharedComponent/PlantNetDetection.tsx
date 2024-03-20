@@ -44,6 +44,7 @@ function PlantNetDetection(){
            // 4. Send request
             fetch(url.toString(), {
                 method: 'POST',
+                mode: "cors",
                 body: form,
             })
             .then((response) => {
