@@ -1,0 +1,60 @@
+input{
+    border-radius: 2px;
+    border: none;
+}
+
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 10rem;
+}
+
+.secondContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin-top: 2rem;
+}
+
+.section{
+    width: 100%;
+    display: flex;
+    height: 5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 2rem;
+}
+
+.pictureSection{
+    width: 100%;
+    display: flex;
+    height: 5rem;
+}
+
+.pictureSection img{
+    border-radius: 50px;
+}
+
+.section input{
+    color: #000;
+    width: 100%;
+}
+
+.buttonSection{
+    width: 100%;
+    display: flex;
+    height: 5rem;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3rem;
+}
+
+.buttonSection button{
+    color: #FFF;
+    border-radius: 4px;
+    border: none;
+    background-color: #00BF63;
+}
