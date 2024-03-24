@@ -1,67 +1,148 @@
+//import modules
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Auth from "../sharedComponent/Auth";
-import { Carousel, CarouselItem } from 'react-bootstrap';
-
-import picture from '../assets/laga.webp'
-
-import '../style/profile.css'
 import Scroller from '../sharedComponent/Scroller';
 import Disconnect from '../sharedComponent/Disconnect';
+import firebase from 'firebase/compat/app';
+import picture from '../assets/homme.png'//image
 
+//import css
+import '../style/profile.css'
+
+//configuration firebase
+const firebaseConfig = {
+
+    apiKey: "AIzaSyBUeKhmFj2oiA_x2P44mCKW3vo7SgW2064",
+    authDomain: "herbadex-4b81c.firebaseapp.com",
+    databaseURL: "https://herbadex-4b81c-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "herbadex-4b81c",
+    storageBucket: "herbadex-4b81c.appspot.com",
+    messagingSenderId: "622092788203",
+    appId: "1:622092788203:web:97d2767d88cec703f2b9ae",
+    measurementId: "G-CDQH82R6KR"
+  
+};
+// Initialiser Firebase
+firebase.initializeApp(firebaseConfig);
+
+/**
+ * La fonction gère tous ce qui est mise à jour profile, récupération d'informations
+ * Elle permet ensuite de les afficher correctement
+ * @returns la page de profile
+ */
 function Profile(){
+    const [email, setEmail] = useState<any>();
+    const [name, setName] = useState<any>();
+    const [checked, setChecked] = useState<any>();
+    const [profilePicture, setProfilePicture] = useState<any>();
+
+    const [newMail, setNewMail] = useState('');
+    const [newName, setNewName] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
     const navigate = useNavigate();
 
+    //on vérifie que l'utilisateur est bien connecté
     useEffect(() => {
       if(!Auth()){
         navigate('/connexion')
       }
     });
 
+    //handle permettant la déconnexion de l'utilisateur
     const handleDisconnect = () => {
         Disconnect();
         navigate('/connexion');
       }
 
+    //fonction permettant de mettre à jour les hooks
+    //pour récupérer les donneés utilisateur
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            setEmail(user.email);
+            setName(user.displayName);
+            setChecked(user.emailVerified);
+            setProfilePicture(user.photoURL);
+        } else {
+            console.log("Aucun utilisateur connecté.");
+        }
+    });
+
+    //constante pour update le mail
+    const handleNewMail = () => {
+        const inputElement = document.getElementById("emailInput") as HTMLInputElement;
+        setNewMail(inputElement.value)
+    }
+
+    //constante pour update le nom
+    const handleNewName = () => {
+        const inputElement = document.getElementById("nameInput") as HTMLInputElement;
+        setNewName(inputElement.value)
+    }
+
+    //constante pour update le mot de passe
+    const handleNewPassword = () => {
+        const inputElement = document.getElementById("passwordInput") as HTMLInputElement;
+        setNewPassword(inputElement.value)
+    }
+
+    //constante pour mettre à jour les informations modifiées sur le serveur
+    const handleUpdateProfile = () => {
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                if(emailRegex.test(newMail)){
+                    user.updateEmail(newMail);
+                }
+                if(newName.length > 3){
+                    user.updateProfile({
+                        displayName: newName
+                    })
+                }
+                if(newPassword.length > 7){
+                    user.updatePassword(newPassword)
+                }
+                
+            } else {
+                console.log("Aucun utilisateur connecté.");
+            }
+        });
+    }
+
     return(
         <>
             <Scroller/>
             <div className='mainContainer'>
-                <h1>Bienvenue @Japanga</h1>
+                <h1>Bienvenue @{name}</h1>
                 <div className='secondContainer'>
                     <div className='pictureSection'>
-                        <img src={picture} alt="picture" />
+                        <input type="image" src={profilePicture || picture} alt="picture"/>
                     </div>
                     <div className='section'>
                         <h2>Pseudo</h2>
-                        <input type="email" name="" id="" placeholder='Japanga'/>
+                        <input type="email" id="nameInput" placeholder={name} onChange={handleNewName}/>
                     </div>
                     <div className='section'>
                         <h2>Email</h2>
-                        <input type="email" name="" id="" placeholder='ceci@est.monmail'/>
+                        <input type="email" name="" id="emailInput" placeholder={email} onChange={handleNewMail}/>
+                        {checked && <h6 className='emailInfos'>Email vérifié</h6>}
                     </div>
                     <div className='section'>
                         <h2>Nouveau mot de passe</h2>
-                        <input type="email" name="" id=""/>
+                        <input type="email" id="passwordInput" onChange={handleNewPassword}/>
                     </div>
-                    <Carousel slide={false} interval={null} style={{width: "20rem"}}>
-                        <CarouselItem>
-                        <div className='buttonSection'>
-                            <button type="submit">Enregistrer les informations</button>
+                        <div className='buttonSection' id='first'>
+                            <button type="submit" onClick={handleUpdateProfile}>Enregistrer les informations</button>
                         </div>
-                        </CarouselItem>
-                        <CarouselItem>
                         <div className='buttonSection'>
                             <button type="submit">Passer à la vitesse supérieur</button>
                         </div>
-                        </CarouselItem>
-                        <CarouselItem>
                         <div className='buttonSection'>
                             <button type="submit" onClick={handleDisconnect}>Se déconnecter</button>
                         </div>
-                        </CarouselItem>
-                    </Carousel>
+                        
                 </div>
             </div>
         </>

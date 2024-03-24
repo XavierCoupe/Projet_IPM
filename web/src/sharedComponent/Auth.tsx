@@ -1,5 +1,9 @@
+import firebase from "firebase/compat/app";
+
+
 function Auth(){
-    if(localStorage.getItem('isConnected') === "true"){
+    const user = firebase.auth().currentUser;
+    if(user){
         return true;
     }else{
         return false;

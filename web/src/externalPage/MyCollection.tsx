@@ -1,34 +1,38 @@
-import Pagination from 'react-bootstrap/Pagination';
-import GetCard from '../sharedComponent/GetCard';
-import medos from '../assets/medos.jpg'
 import Auth from '../sharedComponent/Auth';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 
 import empty from '../assets/empty.png'
 
+import bravo from '../assets/bravo.png'
+
 import '../style/collection.css'
 import Scroller from '../sharedComponent/Scroller';
+import GetMyCollectionCards from '../sharedComponent/GetMyCollectionCards';
 
-function GetPagination() {
-    return (
-      <div style={{display:'flex', width:'100%', flexDirection:'column', alignItems:'center'}}>
-        <Pagination>
-          <Pagination.First />
-          <Pagination.Prev />
-          <Pagination.Item>{1}</Pagination.Item>
-          <Pagination.Item>{2}</Pagination.Item>
-          <Pagination.Next />
-          <Pagination.Last />
-        </Pagination>
-      </div>
-    );
-  }
+const firebaseConfig = {
+
+  apiKey: "AIzaSyBUeKhmFj2oiA_x2P44mCKW3vo7SgW2064",
+  authDomain: "herbadex-4b81c.firebaseapp.com",
+  databaseURL: "https://herbadex-4b81c-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "herbadex-4b81c",
+  storageBucket: "herbadex-4b81c.appspot.com",
+  messagingSenderId: "622092788203",
+  appId: "1:622092788203:web:97d2767d88cec703f2b9ae",
+  measurementId: "G-CDQH82R6KR"
+
+};
+// Initialiser Firebase
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
 
 function MyCollection() {
+  const [uid, setUid] = useState('');
+  const [species, setSpecies] = useState([]);
 
     const navigate = useNavigate();
-    const test = false;
 
     useEffect(() => {
       if(!Auth()){
@@ -36,33 +40,54 @@ function MyCollection() {
       }
     });
 
-    var plantes = [{name: 'None', description: 'None'}];
-
-    if(test){
-      plantes = [
-        { name: 'Sapin', description: 'C\'est un connifere.' },
-        { name: 'Plantes', description: 'c une plantes logique' },
-        { name: 'Fleur', description: 'c une plante aussi' },
-        { name: 'Pissenlit', description: 'je crois aussi' },
-        { name: 'Rose', description: 'aussi' },
-        { name: 'Mohamded', description: 'c pas une plantes ca par contre' },
-        { name: 'Xav', description: 'non plus' },
-        { name: 'Le w', description: 'on sais jamais' },
-        { name: 'Test', description: 'big test ca' },
-      ];
+    function recupererListeEntiers(uid: string | undefined) {
+      db.collection("Utilisateurs").doc(uid).get()
+        .then(function(doc) {
+          if (doc.exists) {
+            // Récupérer la liste des entiers
+            var listePlantes = doc.data()?.listePlantes;
+            setSpecies(listePlantes)
+            console.log("Liste des entiers de l'utilisateur :", species);
+          } else {
+            console.log("Aucun document trouvé pour cet utilisateur.");
+          }
+        })
+        .catch(function(error) {
+          console.error("Erreur lors de la récupération des données :", error);
+        });
     }
 
-    var image = medos;
-    if(plantes.length > 1){
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+          setUid(user.uid);
+      } else {
+          console.log("Aucun utilisateur connecté.");
+      }
+  });
+    
+    // Utilisation de la fonction pour récupérer la liste des entiers pour un UID spécifique
+    useEffect(() => {
+        if(uid.length > 0){
+          recupererListeEntiers(uid);
+        }
+    }, [uid])
+
+    if(species.length > 0){
       return(
         <>
           <Scroller />
-          <div style={{ padding:'1rem', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
-            {plantes.map((name, index) => (
-              <GetCard key={index} name={name.name} image={image} id='1'/>
-            ))}
+          <div className='mainTitle'>
+            <h1>Ma collection</h1>
           </div>
-          <GetPagination/>
+          <div style={{ padding:'1rem', display: 'flex', flexDirection: 'row', flexWrap: 'wrap'}}>
+          {species.map((specie) => (
+            <GetMyCollectionCards id={specie}/>
+          ))}
+          </div>
+          <div className='text'>
+            <h2>Vous avez une sacrée collection</h2>
+            <img className='bravoImg' src={bravo} alt="Image de félicitation" />
+          </div>
         </>
       );
     }else{

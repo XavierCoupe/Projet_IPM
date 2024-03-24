@@ -55,17 +55,15 @@ function SingUp(){
     useEffect(() => {
         const handleSignUp = async () => {
             if(confirmation){
-                console.log("wow");
                 try {
-                    const userCredential = await firebase.auth().createUserWithEmailAndPassword(mail, password);
-                    if (userCredential.user) {
-                    // Une fois l'utilisateur inscrit, vous pouvez stocker des informations supplémentaires dans Firestore
-                    await firebase.firestore().collection('users').doc(userCredential.user.uid).set({
-                        name: name,
-                        email: mail
-                    });
-                    alert('Inscription réussie!');
-                    }
+                    firebase.auth().createUserWithEmailAndPassword(mail, password)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+                        user?.updateProfile({
+                            displayName: name
+                        });
+                        user?.sendEmailVerification()
+                    })
                 } catch (error) {
                     console.log("Failure to connect with status: " + error);
                 }
