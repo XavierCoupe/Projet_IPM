@@ -1,0 +1,51 @@
+*{
+    color: hsl(0, 0%, 100%);
+}
+
+input{
+    color: #000;
+}
+
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: -4rem;
+}
+
+.inputContainer{
+    display: flex;
+    flex-direction: column;
+    width: 50rem;
+    align-items: center
+}
+
+.connectContainer{
+    margin-top: 2rem;
+    margin-bottom: 15rem
+}
+
+.connectButton{
+    border: none;
+    background: none;
+    margin-right: 2rem;
+}
+
+.connectButton:hover{
+    color: #00BF63;
+}
+
+.noAccountButton{
+    border: none;
+    background: none
+}
+
+.noAccountButton:hover{
+    color: #00BF63;
+}
+
+#errorBox{
+    color: red;
+    margin-top: 1rem;
+}

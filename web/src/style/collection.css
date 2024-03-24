@@ -1,0 +1,83 @@
+.noCardInCollection{
+    margin-top: 20rem;
+    margin-bottom: 30rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.loadingBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.buttonContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-right: 2rem;
+    margin-top: 8rem;
+}
+
+.buttonItem{
+    color: #FFF;
+    border: none;
+    border-radius: 2px;
+    background-color: #00BF63;
+    margin-right: 2rem; 
+    display: none;
+}
+
+.buttonItem:hover{
+    filter: opacity(0.5);
+}
+
+.cardContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.title{
+    margin-top: 6rem;
+    margin-bottom: 4rem;
+}
+
+.searchBar{
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.searchBarElementsContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.searchBarElement{
+    margin-top: 2rem;
+    margin-left: 2rem;
+}
+
+.mainTitle{
+    margin-top: 6rem;
+    margin-bottom: 2rem;
+}
+
+.text{
+    margin-top: 7rem;
+    margin-bottom: 3rem;
+}
+
+.bravoImg{
+    width: 4rem;
+}
