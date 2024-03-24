@@ -7,12 +7,21 @@ import ExtractCardFromPerenual from './ExtractCardFromPerenual';
 
 import '../style/global.css'
 
+/**
+ * Interface de la fonction GetCard
+ */
 interface CardProps {
   name: string;
   image: string;
   id: string
 }
 
+/**
+ * @author Wandrille BALLEREAU
+ * @description Fonction pour créer des cartes en HTML automatiquement à partir de quelques données
+ * @param param0 name -> le nom de l'espèce, image -> le lien de l'image, id -> l'id de la plante
+ * @returns Code HTML créeant une carte paramètrer pour une certaine espèce
+ */
 const GetCard: React.FC<CardProps> = ({ name, image, id }: CardProps) => {
 
     const [show, setShow] = useState(false);

@@ -12,7 +12,8 @@ import Scroller from './Scroller';
 import '../style/collection.css'
 
 /**
- * Cette fonction permet de traiter les images des plantes ayant une erreur
+ * @author Wandrille BALLEREAU
+ * @description Cette fonction permet de traiter les images des plantes ayant une erreur
  * @returns Nothing
  */
 async function ImgCorrector() {
@@ -44,8 +45,8 @@ async function ImgCorrector() {
 
 
 /**
- * Cette fonction fait un appel à l'API perenual pour récupérer des informations sur les plantes d'une page
- * Elle fait toute la récupération des données et leur mise en page
+ * @description Cette fonction fait un appel à l'API perenual pour récupérer des informations sur les plantes d'une page
+ * @description Elle fait toute la récupération des données et leur mise en page
  * @returns retourne la liste des plantes d'une certaine page
  */
 function PerenualPlantList(){

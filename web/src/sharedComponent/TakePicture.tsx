@@ -1,11 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { saveAs } from 'file-saver';
 
+/**
+ * @author Wandrille BALLEREAU
+ * @description Permet de prendre une photo directement avant de l'envoyer au serveur (Doesn't work at this time)
+ * @returns Le code HTML pour ouvrir l'appareil photo et prendre une photo
+ */
 const TakePicture: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [imageDataUrl, setImageDataUrl] = useState<string | null>(null);
 
+  //ouverture de la caméra
   const openCamera = async () => {
     try {
       const newStream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -18,6 +24,7 @@ const TakePicture: React.FC = () => {
     }
   };
 
+  //fermeture de la caméra
   const closeCamera = () => {
     if (stream) {
       stream.getTracks().forEach(track => {
@@ -31,6 +38,7 @@ const TakePicture: React.FC = () => {
     }
   };
 
+  //prise de la photo
   const takePhoto = () => {
     if (videoRef.current) {
       const canvas = document.createElement('canvas');
@@ -45,6 +53,7 @@ const TakePicture: React.FC = () => {
     }
   };
 
+  //téléchargement de la photo
   const downloadImage = () => {
     if (imageDataUrl) {
       fetch(imageDataUrl)

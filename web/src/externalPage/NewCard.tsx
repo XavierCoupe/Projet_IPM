@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 
 //import css
 import '../style/newCard.css'
+import Auth from "../sharedComponent/Auth";
 
 //configuration firebase
 const firebaseConfig = {
@@ -28,15 +29,25 @@ firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
 /**
- * La fonction permet de faire la gestion de la capture d'une plante. Elle permet aussi de génerer le code HTML de la page.
+ * @author Wandrille BALLEREAU
+ * @description La fonction permet de faire la gestion de la capture d'une plante. Elle permet aussi de génerer le code HTML de la page.
  * @returns HTML de la page d'une carte capturé
  */
 function NewCard(){
     const navigate = useNavigate();//module de navigation
     const [uid, setUid] = useState('');//hook pour stocker le uid user
+
+    //Boutton de retours au menu principal
     const backHome = () => {
         navigate('/');
     }
+
+    //vérification de la connexion de l'utilisateur
+    useEffect(() => {
+        if(!Auth()){
+          navigate('/connexion')
+        }
+      });
 
     //la fonction permet de stocker dans firebase realtime la nouvelle carte collectionnée
     function stockerInformationsUtilisateur(identifiant: string, listePlantes: number[]) {

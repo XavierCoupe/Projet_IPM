@@ -3,10 +3,16 @@ import { Nav } from 'react-bootstrap';
 import { Link, useLocation } from 'react-router-dom';
 import Auth from './Auth';
 
+/**
+ * @author Wandrille BALLEREAU
+ * @description Fonction permettant la gestion de la navbar, son affichage et son utilisation
+ * @returns Une navbar contenant 4 pages différentes
+ */
 function Navigator(){
     const [selected, setSelected] = useState<number>(1)
     const location = useLocation();
 
+    //gestionnaire des pages courrantes
     useEffect(() => {
       switch (location.pathname) {
         case "/":
@@ -26,6 +32,7 @@ function Navigator(){
       }
     }, [location.pathname]);
   
+    //handle de sélection d'une page
     const handleSelect = (eventKey: string | null) => {
       if(eventKey){
         setSelected(parseInt(eventKey))

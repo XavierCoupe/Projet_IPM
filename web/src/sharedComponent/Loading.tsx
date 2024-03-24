@@ -1,5 +1,9 @@
 import Spinner from 'react-bootstrap/Spinner';
 
+/**
+ * @author Wandrille BALLEREAU
+ * @returns Des logos de chargements
+ */
 function Loading() {
     return(
       <>

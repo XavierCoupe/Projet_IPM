@@ -1,6 +1,9 @@
 import firebase from "firebase/compat/app";
 
-//fonction de déconnexion de l'utilisateur
+/**
+ * @author Wandrille BALLEREAU
+ * @description Fonction pour déconnecter l'utilisateur
+ */
 function Disconnect(){
     firebase.auth().signOut().then(() => {
         console.log("Utilisateur déconnecté avec succès !");

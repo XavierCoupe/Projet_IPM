@@ -2,10 +2,14 @@ import { useState } from 'react';
 import Toaster from "./Toaster";
 import ButtonComponent from "./ToasterButton";
 
+/**
+ * @author Wandrille BALLEREAU
+ * @description Génère le footer des pages du site web
+ * @returns Le code HTML du footer de chaque page
+ */
 function Footer(){
-
+    //notification pour représenter les clauses RGPD
     const [showToast, setShowToast] = useState(false);
-
     const toggleToast = () => setShowToast(!showToast);
 
     return(

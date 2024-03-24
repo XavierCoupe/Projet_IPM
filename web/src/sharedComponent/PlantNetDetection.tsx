@@ -2,30 +2,42 @@ import '../style/plantDetection.css'
 import TakePicture from './TakePicture';
 import scan from '../assets/scan.png'
 import { useNavigate } from 'react-router-dom';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
+import Auth from './Auth';
 
-const PROJECT = 'all'; // try 'weurope', 'canada'…
+const PROJECT = 'all';
 const API_URL = 'https://my-api.plantnet.org/v2/identify/' + PROJECT;
 
-// to make this example work you have to expose your API key and
-// authorize your webserver address in "Authorized domains" section
-// see https://my.plantnet.org/account/doc#exposekey
 const API_KEY = '2b10QLbiB1ARdDqPHrwcuOb9u';
 
+/**
+ * @author Wandrille BALLEREAU
+ * @description Permet la gestion, l'affichage et l'utilisation de la page de scan d'une espèce.
+ * @returns Le code HTML permettant de générer la page de scan d'une espèce
+ */
 function PlantNetDetection(){
-
     const navigate = useNavigate();
 
     const formRef = useRef(null);
 
+    //vérification de la connexion de l'utilisateur
+    useEffect(() => {
+        if(!Auth()){
+          navigate('/connexion')
+        }
+      });
+
+    //handle d'envoie du formulaire
     const handleSubmit = async () => {
         if(!formRef){
             return;
         }
 
+        //récupération de l'image
         const fileInput = document.getElementById('image') as HTMLInputElement;
         const images = fileInput?.files;
 
+        //gestion et formatage du formulaire
         if (images && images.length > 0) {
             const form = new FormData();
             form.append('organs', 'auto');
@@ -64,8 +76,9 @@ function PlantNetDetection(){
                 console.error(error);
             });
         }
-};
+    };
 
+    //redirection vers la page de capture réussite d'une espèce
     const handleCapture = () => {
         navigate("/newCard");
     }

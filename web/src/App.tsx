@@ -1,3 +1,4 @@
+//import modules
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Navigator from './sharedComponent/Navigator';
 import MyCollection from './externalPage/MyCollection';
@@ -10,11 +11,17 @@ import InitConnexion from './sharedComponent/InitConnexion';
 import NewCard from './externalPage/NewCard';
 import SingUp from './externalPage/SingUp';
 
+//import css
 import './style/App.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+/**
+ * @author Wandrille BALLEREAU
+ * @description Fonction principale permettant la gestion globale du site web
+ * @returns le site web
+ */
 function App() {
-
+  //initialise la connexion
   InitConnexion();
 
   return (

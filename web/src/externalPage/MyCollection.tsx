@@ -1,16 +1,16 @@
+//import modules
 import Auth from '../sharedComponent/Auth';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
-
 import empty from '../assets/empty.png'
-
 import bravo from '../assets/bravo.png'
-
-import '../style/collection.css'
 import Scroller from '../sharedComponent/Scroller';
 import GetMyCollectionCards from '../sharedComponent/GetMyCollectionCards';
+
+//import css
+import '../style/collection.css'
 
 const firebaseConfig = {
 
@@ -24,22 +24,33 @@ const firebaseConfig = {
   measurementId: "G-CDQH82R6KR"
 
 };
-// Initialiser Firebase
+
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
+/**
+ * @author Wandrille BALLEREAU
+ * @description Fonction permettant la gestion de la page principale et génération de son code HTML associé
+ * @returns Retourne le code HTML de la page d'affichage de la collection de l'utilisateur
+ */
 function MyCollection() {
   const [uid, setUid] = useState('');
   const [species, setSpecies] = useState([]);
 
     const navigate = useNavigate();
 
+    //vérification de la connexion de l'utilisateur
     useEffect(() => {
       if(!Auth()){
         navigate('/connexion')
       }
     });
 
+    /**
+     * @description Fonction permettant
+     * @param uid L'id de l'utilisateur connecté
+     * @returns rien
+     */
     function recupererListeEntiers(uid: string | undefined) {
       db.collection("Utilisateurs").doc(uid).get()
         .then(function(doc) {
@@ -47,7 +58,6 @@ function MyCollection() {
             // Récupérer la liste des entiers
             var listePlantes = doc.data()?.listePlantes;
             setSpecies(listePlantes)
-            console.log("Liste des entiers de l'utilisateur :", species);
           } else {
             console.log("Aucun document trouvé pour cet utilisateur.");
           }
@@ -57,11 +67,10 @@ function MyCollection() {
         });
     }
 
+    //récupération de l'utilisateur connecté
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-          setUid(user.uid);
-      } else {
-          console.log("Aucun utilisateur connecté.");
+        setUid(user.uid);
       }
   });
     
@@ -72,6 +81,7 @@ function MyCollection() {
         }
     }, [uid])
 
+    //on retourne le HTML avec la collection de l'utilisateur si elle existe
     if(species.length > 0){
       return(
         <>

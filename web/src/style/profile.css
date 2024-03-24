@@ -69,3 +69,7 @@ input{
 #first{
     margin-top: 3rem;
 }
+
+.errorBox{
+    color: red;
+}

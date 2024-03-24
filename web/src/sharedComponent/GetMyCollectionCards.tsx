@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
 import GetPerenualApiKey from "./GetPerenualApiKey";
 import GetCard from "./GetCard";
 
+/**
+ * @author Wandrille BALLEREAU
+ * @description Permet de retourner la carte d'une espèce selon son id dans l'API Perenual
+ * @param param0 L'id d'une espèce
+ * @returns retourne une carte contenant les information d'une espèce selon son id
+ */
 function GetMyCollectionCards({id}: {id: string}){
     const [responseData, setResponseData] = useState<any | null>(null);
     const [requestDone, setRequestDone] = useState(false);
@@ -10,6 +16,7 @@ function GetMyCollectionCards({id}: {id: string}){
     const [plantId, setPlantId] = useState('')
     const [url, setUrl] = useState('')
 
+    //récupération des données via l'API Perenual
     useEffect(() => {
         const fetchData = async () =>{
             if(!requestDone){
@@ -29,6 +36,7 @@ function GetMyCollectionCards({id}: {id: string}){
         fetchData();
     })
 
+    //Mise à jour des hooks quand les données ont été récupérées
     useEffect(() => {
         if (responseData !== null && responseData.common_name !== null && responseData.id !== null) {
             setCommonName(responseData.common_name);

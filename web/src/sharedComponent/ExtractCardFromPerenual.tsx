@@ -4,15 +4,22 @@ import Loading from './Loading';
 import GetPerenualApiKey from './GetPerenualApiKey';
 import HerbadexCarousel from './HerbadexCarousel';
 import hardinessMap from '../assets/hardiness_map.png';
+import comingSoon from '../assets/comingSoon.png'
 
 import '../style/global.css'
 
-import comingSoon from '../assets/comingSoon.png'
 
+/**
+ * @author Wandrille BALLEREAU
+ * @description Fonction permettant de récupérer les information d'une espèce et de générer le code HTML pour les mettres en formes
+ * @param param0 identifiant d'une plante
+ * @returns Le code HTML du offcanvas d'une espèce en particulier
+ */
 function ExtractCardFromPerenual({id} : {id : string}) {
     const [responseData, setResponseData] = useState<any | null>(null);
-    const [overTime, setOverTime] = useState(false);
+    const [overTime, setOverTime] = useState(false);//true si une erreur s'est produite pendant la récupération des données
 
+    //récupération des données -> stockées dans responseData
     useEffect(() => {
       async function fetchData() {
         try {

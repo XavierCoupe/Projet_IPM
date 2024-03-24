@@ -1,19 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-
 import singin from '../assets/singin.png'
 import send from '../assets/send.png'
-
-import '../style/singup.css'
-
 import { useEffect, useState } from 'react';
 import Scroller from '../sharedComponent/Scroller';
 import Auth from '../sharedComponent/Auth';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/firestore';
 
-import firebase from 'firebase/compat/app'; // Importez compat/app
-import 'firebase/compat/auth'; // Importez compat/auth
-import 'firebase/compat/firestore'; // Importez compat/firestore
+import '../style/singup.css'
 
-// Configurer Firebase avec vos propres clés d'API
 const firebaseConfig = {
 
     apiKey: "AIzaSyBUeKhmFj2oiA_x2P44mCKW3vo7SgW2064",
@@ -27,24 +23,33 @@ const firebaseConfig = {
   
 };
 
-// Initialiser Firebase
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 } else {
-  firebase.app(); // si Firebase est déjà initialisé, utilisez l'instance existante
+  firebase.app();
 }
 
+/**
+ * @author Wandrille BALLEREAU
+ * @description Permet la gestion de la page de connexion et la génération de son code HTML associé
+ * @returns Le code HTML de la page de connexion
+ */
 function SingUp(){
+    //Hooks pour stocker les informations entrée par l'utilisateur
     const [name, setName] = useState('');
     const [mail, setMail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmation, setConfirmation] = useState(false);
 
+    //Hook pour savoir où on en est dans les étapes de création du compte
     const [step, setStep] = useState(0);
     
+    //Hook pour gérer les affichages à l'écran
     const [informations, setInformations] = useState<string[]>();
     const [textInformation, setTextInformation] = useState("Pour commencer, comment veux tu que je t'appelle ?");
+    const [textError, setTextError] = useState('');
 
+    //constante de vérification de la validité des informations rentrée par l'utilisateur
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const nameMinLength = 3;
     const mailMinLength = 4;
@@ -52,6 +57,14 @@ function SingUp(){
 
     const navigate = useNavigate();
 
+    //vérification de la non-connexion de l'utilisateur
+    useEffect(() => {
+        if(Auth()){
+          navigate('/')
+        }
+    });
+
+    //crée le compte de l'utilisateur si la dernière étape a bien été effetuée
     useEffect(() => {
         const handleSignUp = async () => {
             if(confirmation){
@@ -73,19 +86,15 @@ function SingUp(){
         handleSignUp();
     }, [confirmation])
     
-      
-    useEffect(() => {
-        if(Auth()){
-          navigate('/')
-        }
-    });
-
+    //Affiche les informations de l'utilisateur dans la console pour débuguer
+    /*
     useEffect(() => {
         if(informations && informations.length > 0){
             console.log(informations)
         }
-    }, [informations])
+    }, [informations])*/
 
+    //si le nom est mis à jour et valable -> on met à jour les informations
     useEffect(() => {
         if(name.length > nameMinLength){
             setInformations([name]);
@@ -93,6 +102,7 @@ function SingUp(){
         }
     }, [name])
 
+    //si le mail est mis à jour et valable -> on met à jour les informations
     useEffect(() => {
         if(mail && mail.length > mailMinLength){
             setInformations(informations?.concat(mail));
@@ -100,6 +110,7 @@ function SingUp(){
         }
     }, [mail])
 
+    //si le mot de passe est mis à jour et valable -> on met à jour les informations
     useEffect(() => {
         if(password && password.length > passwordMinLength  && step == 3){
             setInformations(informations?.concat(password));
@@ -107,6 +118,7 @@ function SingUp(){
         }
     }, [password])
 
+    //si le mot de passe est confirmé et est mis à jour -> on met à jour les informations
     useEffect(() => {
         if(confirmation){
             setInformations(informations?.concat(''+confirmation));
@@ -114,13 +126,14 @@ function SingUp(){
         }
     }, [confirmation])
 
+    //Gestion des étapes dans le système de connexion
     const handleNext = () => {
+        //récupération des éléments présent sur la page
         var inputElement = document.getElementById("informationButton") as HTMLInputElement;
-        var messageZone = document.getElementById("messageZone") as HTMLInputElement;
 
-        messageZone.style.display = 'none';
-
-        if(step == 0){
+        //Affichage de la page et mise à jour des informations utilisateurs
+        //en fonction de l'étape dans le processus d'inscription
+        if(step == 0){//step 0 -> gestion du nom + affichage de la section email 
             if (inputElement !== null && inputElement.value.length > nameMinLength) {
                 var valeurInput: string = inputElement.value;
                 setName(valeurInput);
@@ -128,13 +141,11 @@ function SingUp(){
                 inputElement.type = "email";
                 inputElement.placeholder = "email@domaine.exemple";
                 setStep(1);
+            }else{
+                setTextError("Erreur: minimum 4 caractères attendus.")
             }
-                messageZone.value = "Erreur: minimum 4 caractères attendus."
-                messageZone.style.display = 'initial';
-                console.log("test");
-                console.log(messageZone.value)
             
-        }else if(step == 1){
+        }else if(step == 1){//step 1 -> gestion de l'email + affichage de la section password
             if (inputElement !== null && emailRegex.test(inputElement.value)) {
                 var valeurInput: string = inputElement.value;
                 setMail(valeurInput);
@@ -142,15 +153,19 @@ function SingUp(){
                 inputElement.type = "password";
                 inputElement.placeholder = "mot de passe";
                 setStep(2);
+            }else{
+                setTextError("Erreur: Email au format exemple@domaine.extension attendu.")
             }
-        }else if(step == 2){
+        }else if(step == 2){//step 2 -> gestion du password + affichage de la section check password
             if (inputElement !== null && inputElement.value.length > passwordMinLength) {
                 var valeurInput: string = inputElement.value;
                 setPassword(valeurInput);
                 inputElement.value = "";
                 setStep(3);
+            }else{
+                setTextError("Erreur: minimum 8 caractères attendus.")
             }
-        }else if(step == 3){
+        }else if(step == 3){//step 3 -> gestion de la confirmation du mot de passe + affichage du retour au menu
             if (inputElement !== null && inputElement.value.length > passwordMinLength) {
                 var valeurInput: string = inputElement.value;
                 if(valeurInput == password){
@@ -161,18 +176,24 @@ function SingUp(){
                     inputElement = document.getElementById("backHome") as HTMLInputElement;
                     inputElement.style.display = 'initial';
                     setStep(4);
+                }else{
+                    setTextError("Erreur: Les mots de passes doivent être identique.")
                 }
+            }else{
+                setTextError("Erreur: minimum 8 caractères attendus.")
             }
         }
         
     }
 
+    //Si la touche entrer est pressé on active l'étape suivante
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             handleNext();
         }
     };
 
+    //handle pour revenir à la page principale
     const handleComeBack = () => {
         navigate('/');
     }
@@ -199,7 +220,7 @@ function SingUp(){
                 </div>
                 <div>
                     <h3 id='messageZone' className='messageZone'>
-                        dfdf
+                        {textError}
                     </h3>
                 </div>
             </div>

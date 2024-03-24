@@ -27,8 +27,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 /**
- * La fonction gère tous ce qui est mise à jour profile, récupération d'informations
- * Elle permet ensuite de les afficher correctement
+ * @author Wandrille BALLEREAU
+ * @description La fonction gère tous ce qui est mise à jour profile, récupération d'informations
+ * @description Elle permet ensuite de les afficher correctement
  * @returns la page de profile
  */
 function Profile(){
@@ -40,6 +41,8 @@ function Profile(){
     const [newMail, setNewMail] = useState('');
     const [newName, setNewName] = useState('');
     const [newPassword, setNewPassword] = useState('');
+
+    const [textError, setTextError] = useState('');
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -95,14 +98,20 @@ function Profile(){
             if (user) {
                 if(emailRegex.test(newMail)){
                     user.updateEmail(newMail);
+                }else if(newMail.length > 0){
+                    setTextError("Erreur: Email au format aaa@bbb.ccc attendu.");
                 }
                 if(newName.length > 3){
                     user.updateProfile({
                         displayName: newName
                     })
+                }else if(newName.length > 0){
+                    setTextError("Erreur: Votre nom doit contenir au minimum 4 caractères.");
                 }
                 if(newPassword.length > 7){
                     user.updatePassword(newPassword)
+                }else if(newPassword.length > 0){
+                    setTextError("Erreur: Le mot de passe doit faire au minimum 7 caractères");
                 }
                 
             } else {
@@ -120,6 +129,7 @@ function Profile(){
                     <div className='pictureSection'>
                         <input type="image" src={profilePicture || picture} alt="picture"/>
                     </div>
+                    <h4 className='errorBox'>{textError}</h4>
                     <div className='section'>
                         <h2>Pseudo</h2>
                         <input type="email" id="nameInput" placeholder={name} onChange={handleNewName}/>
@@ -134,15 +144,11 @@ function Profile(){
                         <input type="email" id="passwordInput" onChange={handleNewPassword}/>
                     </div>
                         <div className='buttonSection' id='first'>
-                            <button type="submit" onClick={handleUpdateProfile}>Enregistrer les informations</button>
-                        </div>
-                        <div className='buttonSection'>
-                            <button type="submit">Passer à la vitesse supérieur</button>
+                            <button type="submit" onClick={handleUpdateProfile}>Mettre à jour le profile</button>
                         </div>
                         <div className='buttonSection'>
                             <button type="submit" onClick={handleDisconnect}>Se déconnecter</button>
-                        </div>
-                        
+                        </div>                    
                 </div>
             </div>
         </>

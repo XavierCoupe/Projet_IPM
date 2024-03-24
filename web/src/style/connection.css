@@ -44,3 +44,8 @@ input{
 .noAccountButton:hover{
     color: #00BF63;
 }
+
+#errorBox{
+    color: red;
+    margin-top: 1rem;
+}

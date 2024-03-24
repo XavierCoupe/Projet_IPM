@@ -1,5 +1,10 @@
 import laga from '../assets/laga.webp'
 
+/**
+ * @author Wandrille BALLEREAU
+ * @description Gestion du design des avatars
+ * @returns code HTML générant un avatar
+ */
 function GetAvatar() {
     return (
       <div style={{width: "2rem"}}>
