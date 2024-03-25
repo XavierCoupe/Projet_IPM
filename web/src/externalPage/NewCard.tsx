@@ -51,17 +51,21 @@ function NewCard(){
 
     //la fonction permet de stocker dans firebase realtime la nouvelle carte collectionnée
     function stockerInformationsUtilisateur(identifiant: string, listePlantes: number[]) {
+        const collection = {
+            uid: identifiant,
+            liste: listePlantes
+        };
         try{
             console.log("Lancement de la requete")
-            db.collection("Utilisateurs").doc(identifiant).set({
-                listePlantes: listePlantes
+            // Ajouter des informations à la collection "Utilisateurs"
+            db.collection('Utilisateurs').add(collection)
+            .then(() => {
+              console.log('Informations utilisateur ajoutées avec succès');
             })
-            .then(function() {
-                console.log("Informations utilisateur stockées avec succès !");
-            })
-            .catch(function(error: any) {
-                console.error("Erreur lors du stockage des informations utilisateur : ", error);
+            .catch((error) => {
+              console.error('Erreur lors de l\'ajout des informations utilisateur :', error);
             });
+
         }catch(error){
             console.log("une erreur s'est produite: " + error)
         }
